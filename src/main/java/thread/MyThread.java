@@ -19,12 +19,19 @@ public class MyThread extends Thread {
 
     public void run(){
         while (true){
-            int nbrPersonne = 50;
-            g = ml.cv.getGraphics();
 
-            axesXY(nbrPersonne, "Nbr", "Genre");
-            histogramme(nbrPersonne);
-            ml.myDataBase.fillTab(ml.tableModel);
+            try {
+                int nbrPersonne = ml.myDataBase.getPersones();
+                g = ml.cv.getGraphics();
+                axesXY(nbrPersonne, "Nbr", "Genre");
+                histogramme(nbrPersonne);
+                ml.myDataBase.fillTab(ml.tableModel);
+                sleep(10000);
+                g.clearRect(0, 0, ml.cv.getWidth(), ml.cv.getHeight());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
 
         }
@@ -36,12 +43,13 @@ public class MyThread extends Thread {
         Dimension d = ml.cv.getSize();
 
         // rectangle des homme
-        int nbrHomme = 25;
+        int nbrHomme = ml.myDataBase.getPersones("Homme");
+        int nbrFemale = ml.myDataBase.getPersones("Female");;
         g.setColor(Color.BLUE);
-        g.fillRect(150,(d.height/2)+100-nbrHomme,100,(d.height/2)+100);
+        g.fillRect(150,(d.height/2)+100-nbrHomme,100,nbrHomme);
         // rectangle des female
         g.setColor(Color.PINK);
-        g.fillRect(500,50,100,(d.height/2)+100-50);
+        g.fillRect(400,(d.height/2)+100-nbrFemale,100,nbrFemale);
     }
 
     public void axesXY(int nbrPersonnes, String labelX, String labelY){
@@ -56,7 +64,7 @@ public class MyThread extends Thread {
         g.drawLine(50,(d.height/2)+100,50,20);
         // nbr Personne
         g.setColor(Color.YELLOW);
-        g.drawLine(25, nbrPersonnes, 75, nbrPersonnes);
-        g.drawString(nbrPersonnes+"", 80, 50);
+        g.drawLine(25, (d.height/2)+100 - nbrPersonnes, 75, (d.height/2)+100 - nbrPersonnes);
+        g.drawString(nbrPersonnes+"", 80, (d.height/2)+100 - nbrPersonnes);
     }
 }
