@@ -26,7 +26,7 @@ public class MyThread extends Thread {
                 axesXY(nbrPersonne, "Nbr", "Genre");
                 histogramme(nbrPersonne);
                 ml.myDataBase.fillTab(ml.tableModel);
-                sleep(10000);
+                sleep(1000);
                 g.clearRect(0, 0, ml.cv.getWidth(), ml.cv.getHeight());
 
             } catch (InterruptedException e) {
@@ -44,12 +44,17 @@ public class MyThread extends Thread {
 
         // rectangle des homme
         int nbrHomme = ml.myDataBase.getPersones("Homme");
-        int nbrFemale = ml.myDataBase.getPersones("Female");;
+        int nbrFemale = ml.myDataBase.getPersones("Female");
+        double prctHomme = ((double) nbrHomme/(double)nbrPersonnes)*100;
+        double prctFemale = ((double)nbrFemale / (double)nbrPersonnes)*100;
         g.setColor(Color.BLUE);
         g.fillRect(150,(d.height/2)+100-nbrHomme,100,nbrHomme);
         // rectangle des female
         g.setColor(Color.PINK);
         g.fillRect(400,(d.height/2)+100-nbrFemale,100,nbrFemale);
+        g.setColor(Color.RED);
+        g.drawString(prctHomme+"",150,10);
+        g.drawString(prctFemale+"",400,10);
     }
 
     public void axesXY(int nbrPersonnes, String labelX, String labelY){
