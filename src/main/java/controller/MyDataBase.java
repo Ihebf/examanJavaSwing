@@ -64,7 +64,7 @@ public class MyDataBase {
             ArrayList<Person> p = new ArrayList<>();
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
-            String query = "SELECT * FROM personr";
+            String query = "SELECT * FROM person";
             Statement stm = connect.createStatement();
             ResultSet res = stm.executeQuery(query);
             while (res.next()){
@@ -75,6 +75,36 @@ public class MyDataBase {
             e.printStackTrace();
         }
         return null;
+    }
+    public int getPersones() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
+            String query = "SELECT count(*) FROM person";
+            Statement stm = connect.createStatement();
+            ResultSet res = stm.executeQuery(query);
+
+            res.next();
+            return res.getInt(1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public int getPersones(String genre) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
+            String query = "SELECT count(*) FROM person where genere = '"+genre+"'";
+            Statement stm = connect.createStatement();
+            ResultSet res = stm.executeQuery(query);
+
+            res.next();
+            return res.getInt(1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
 

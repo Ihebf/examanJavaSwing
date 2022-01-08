@@ -25,7 +25,7 @@ public class MyEvent {
             else if(myForm.r2.isSelected())
                 myDataBase.add(new Person(0,myForm.tfName.getText(),"Female"));
             else
-                throw new Exception("Please selecte");
+                throw new Exception("Please selecte ");
         }
     }
 

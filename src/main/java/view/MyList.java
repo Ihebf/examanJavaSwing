@@ -33,7 +33,7 @@ public class MyList extends JFrame {
         this.setTitle("Examen");
         this.setSize(800, 800);
         this.setLocationRelativeTo(getParent());
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
         JPanel southPanel = new JPanel();
