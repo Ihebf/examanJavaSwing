@@ -1,6 +1,7 @@
 package view;
 
 import controller.MyDataBase;
+import controller.MyEvent;
 import thread.MyThread;
 
 import javax.swing.*;
@@ -31,9 +32,11 @@ public class MyList extends JFrame {
         myDataBase = new MyDataBase();
 
         this.setTitle("Examen");
-        this.setSize(800, 800);
+        //this.setSize(800, 800);
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
         this.setLocationRelativeTo(getParent());
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
         JPanel southPanel = new JPanel();
@@ -42,7 +45,6 @@ public class MyList extends JFrame {
         cv.setBackground(Color.BLACK);
         southPanel.add(cv);
         mt = new MyThread(this);
-
         this.add(northPanel(),BorderLayout.NORTH);
         this.add(cv,BorderLayout.CENTER);
         this.setVisible(true);

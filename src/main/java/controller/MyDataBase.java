@@ -7,15 +7,21 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class MyDataBase {
-    private Connection connect = null;
+    public Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-    public boolean add(Person p){
+    public MyDataBase(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean add(Person p){
+        try {
             String SQL = "INSERT INTO person (name, genere) VALUES(?,?);";
             preparedStatement = connect.prepareStatement(SQL);
             preparedStatement.setString(1,p.getName());
@@ -30,8 +36,6 @@ public class MyDataBase {
 
     public int modify(Person p){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
             String SQL = "UPDATE person set genere=?,name=?   WHERE id=?;";
             preparedStatement = connect.prepareStatement(SQL);
             preparedStatement.setInt(1,p.getId());
@@ -62,8 +66,7 @@ public class MyDataBase {
         try {
             model.setRowCount(0);
             ArrayList<Person> p = new ArrayList<>();
-            Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
+
             String query = "SELECT * FROM person";
             Statement stm = connect.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -78,8 +81,6 @@ public class MyDataBase {
     }
     public int getPersones() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
             String query = "SELECT count(*) FROM person";
             Statement stm = connect.createStatement();
             ResultSet res = stm.executeQuery(query);
@@ -93,8 +94,6 @@ public class MyDataBase {
     }
     public int getPersones(String genre) {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost/examen", "root", "");
             String query = "SELECT count(*) FROM person where genere = '"+genre+"'";
             Statement stm = connect.createStatement();
             ResultSet res = stm.executeQuery(query);

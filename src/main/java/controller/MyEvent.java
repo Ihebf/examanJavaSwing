@@ -11,13 +11,14 @@ public class MyEvent {
     MyForm myForm;
     MyDataBase myDataBase;
 
+
     public MyEvent(MyForm myForm){
         this.myForm = myForm;
     }
 
     public void actionPerformed(ActionEvent event) throws Exception {
         if(event.getSource() == myForm.list){
-            new MyList();
+            MyList ml = new MyList();
         }else if(event.getSource() == myForm.add){
             myDataBase = new MyDataBase();
             if(myForm.r1.isSelected())
